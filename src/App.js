@@ -1,24 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import TodoListItem from './components/todoList/todoListItem';
 
 function App() {
+  const [todoList, setTodoList] = useState(() => {
+    return JSON.parse(localStorage.getItem('list')) || ['Go School', 'Go To Office', 'Go To playfootball'];
+  });
+
+  function onToDeleteItem(index) {
+    let newList = [...todoList];
+    newList.splice(index, 1);
+    localStorage.setItem('list', JSON.stringify(newList));
+    setTodoList(newList);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ul>
+        {todoList.map((item, index) => <TodoListItem key={index} item={item} onToDeleteItem={() => onToDeleteItem(index)} />)}
+      </ul>
     </div>
   );
 }

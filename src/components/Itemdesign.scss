@@ -1,0 +1,9 @@
+.box {
+    $width: 100px;
+
+    width: $width;
+    height: $width;
+
+    transition: all 0.35s ease-in-out 0s;
+    cursor: pointer;
+}
